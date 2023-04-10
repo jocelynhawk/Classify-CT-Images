@@ -1,5 +1,4 @@
 import numpy as np
-import keras
 import os
 from keras.models import Model, load_model
 from keras.layers import Input, BatchNormalization, Dense, Softmax
@@ -8,12 +7,11 @@ from keras.layers.convolutional import Conv2D, Conv2DTranspose
 from keras.layers.pooling import MaxPooling2D
 from keras.callbacks import EarlyStopping, ModelCheckpoint
 from keras import backend as K
-from skimage.io import imread, imshow
-from numba import jit
 import tensorflow as tf
+from skimage.io import imread, imshow
+#os.environ['KMP_DUPLICATE_LIB_OK']='True'
 sess = tf.compat.v1.Session(config=tf.compat.v1.ConfigProto(log_device_placement=True))
-print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
-
+print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')),tf.config.experimental.list_physical_devices('GPU'))
 img_width, img_height = 840, 450
 
 
@@ -70,7 +68,7 @@ def AlexNet(img,label):
 
     return model
 
-@jit(target_backend='cuda') 
+#@jit(target_backend='cuda') 
 def train(model):
     filepath = "model.h5"
 
